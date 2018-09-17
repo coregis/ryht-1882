@@ -45,6 +45,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY29yZS1naXMiLCJhIjoiaUxqQS1zQSJ9.mDT5nb8l_dWI
 					[-85.50,39.317] // northeast coords
 				];
 
+
+				
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/core-gis/cjm2gaa5p950g2rn6pg3u90ko', // stylesheet location; this is the migrated style with markers turned OFF and 1882 polys on
@@ -107,6 +109,9 @@ map.on('load', function () {
 		
 	}
 
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());	
+	
 </script>
 
 </body>
