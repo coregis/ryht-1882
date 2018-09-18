@@ -32,6 +32,11 @@ img {
 	max-width:  100%;
 }
 
+img.charter {
+	display: block;
+	text-align: center;
+}
+
 .mapboxgl-popup-content {
 	max-width: 300px;
 }

@@ -27,8 +27,10 @@
 				  <ul class='legend-labels'>
 					<li><span style='background:#eeffe6;'></span>No increase</li>
 					<li><span style='background:#b8e65c;'></span>$1 - 1,000</li>
-					<li><span style='background:#7ba822;'></span>$1,001 - $2,000</li>
-					<li><span style='background:#3c5900;'></span>More than $2,000</li>
+					<li><span style='background:#90bd3e;'></span>$1 - 1,500</li>
+					<li><span style='background:#6e9623;'></span>$1,501 - $2,000</li>
+					<li><span style='background:#4d7300;'></span>More than $2,000</li>
+					<li><span><img class="charter" src="markers/charter_marker.svg"></img></span>Charter Schools</li>
 				  </ul>
 			</div>			
 		<div class='legend-source'>Source: <a href="https://www.raiseyourhandtexas.org/"  target="_blank">Raise Your Hand Texas</a></div>
@@ -65,10 +67,10 @@ map.on('load', function () {
 		//Add a map layer for all the parcels
 
 	map.addLayer({
-		"id":"districts_1882_lines",
+		"id":"districts_1882",
 		"type":"fill",
 		"source":"districts_1882",
-		"source-layer":"texas_districts_1882_v2",
+		"source-layer":"texas_districts_1882_v3",
 		"layout":{		},
 		"paint":{
 			'fill-color': 'rgba(200, 100, 240, 0)',
@@ -79,7 +81,7 @@ map.on('load', function () {
 
 // When a click event occurs on a feature in the states layer, open a popup at the
     // location of the click, with description HTML from its properties.
-    map.on('click', 'districts_1882_lines', function (e) {
+    map.on('click', 'districts_1882', function (e) {
         new mapboxgl.Popup()
             .setLngLat(e.lngLat)
             .setHTML(fillpopup(e.features[0].properties))
@@ -88,12 +90,12 @@ map.on('load', function () {
     });
 	
 	 // Change the cursor to a pointer when the mouse is over the parcel layer.
-    map.on('mouseenter', 'districts_1882_lines', function () {
+    map.on('mouseenter', 'districts_1882', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
 
     // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'districts_1882_lines', function () {
+    map.on('mouseleave', 'districts_1882', function () {
         map.getCanvas().style.cursor = '';
     });
 	
@@ -101,9 +103,9 @@ map.on('load', function () {
 		var html = "";
 		html = html + "<span class='varname'>District Name: </span> <span class='attribute'>" + data.SchDistNam + "</span>";
 		html = html + "<br>"
-		html = html + "<span class='varname'>Total Increase: </span> <span class='attribute'>" + "$" + data.Sum_of_Gai + "</span>";
+		html = html + "<span class='varname'>Total Increase: </span> <span class='attribute'>" + data.SumOfGain + "</span>";
 		html = html + "<br>"
-		html = html + "<span class='varname'>Increase per ADA</span> <span class='attribute'>" + "$" + data.Est_ADA_In +"</span>";
+		html = html + "<span class='varname'>Increase per ADA</span> <span class='attribute'>" + data.EstADAIn +"</span>";
 		return html;
 		//this will return the string to the calling function
 		
