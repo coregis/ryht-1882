@@ -26,6 +26,19 @@ span.attribute {
     margin-bottom: 0;
 }
 
+/*This is formatting for the text that appears in the 'on hover' popup for charter schools*/
+
+.mapboxgl-popup-content {
+	font-family: "Open Sans", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	color: #5b5b5b;
+	margin-top: 0;
+    margin-bottom: 0;
+}
+
 /*This changes the size of the image in the popup*/
 img {
 	max-height:  100%;
@@ -407,4 +420,15 @@ p.moreinfo  {
     z-index:2;
     background:#ee5e2a;
 	overflow: auto;
+}
+
+.mapboxgl-ctrl-bottom-right {
+    bottom: 0;
+    right: 0;
+	margin-right: 10px;
+	margin-bottom: 0px;
+}
+
+.mapbox-improve-map {
+    display: none;
 }

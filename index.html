@@ -11,9 +11,10 @@
 			body { margin:0; padding:0; }
 			#map { position:absolute; top:0; bottom:0; width:100%; }
 			.mapboxgl-popup {
-				max-width: 400px;
+				max-width: 240px;
 				font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 			}
+
 		</style>
 </head>
 <body>
@@ -64,7 +65,7 @@ map.on('load', function () {
 		type:'vector',
 		url:'mapbox://core-gis.b73007d3'
 		});
-		//Add a map layer for all the parcels
+		//Add a map layer for all the districts
 
 	map.addLayer({
 		"id":"districts_1882",
@@ -79,7 +80,29 @@ map.on('load', function () {
 	});
 });
 
-// When a click event occurs on a feature in the states layer, open a popup at the
+map.on('load', function () {
+
+	map.addSource('charter_schools',{
+		type:'vector',
+		url:'mapbox://core-gis.1njhmpnd'
+		});
+		//Add a map layer for charter schools
+
+	map.addLayer({
+		"id":"charter_schools",
+		"type":"fill",
+		"source":"charter_schools",
+		"source-layer":"charter_schools_v1-6wolgf",
+		"layout":{		},
+		"paint":{
+			'fill-color': 'rgba(200, 100, 240, 0)',
+            'fill-outline-color': 'rgba(200, 100, 240, 0)'
+			}	
+	});
+});
+
+
+	// When a click event occurs on a feature in the districts layer, open a popup at the
     // location of the click, with description HTML from its properties.
     map.on('click', 'districts_1882', function (e) {
         new mapboxgl.Popup()
@@ -89,12 +112,12 @@ map.on('load', function () {
 		console.log(e.features[0].properties);
     });
 	
-	 // Change the cursor to a pointer when the mouse is over the parcel layer.
+	 // Change the cursor to a pointer when the mouse is over the districts layer.
     map.on('mouseenter', 'districts_1882', function () {
         map.getCanvas().style.cursor = 'pointer';
     });
 
-    // Change it back to a pointer when it leaves.
+    // Change it back to a pointer when it leaves
     map.on('mouseleave', 'districts_1882', function () {
         map.getCanvas().style.cursor = '';
     });
@@ -111,8 +134,69 @@ map.on('load', function () {
 		
 	}
 
-// Add zoom and rotation controls to the map.
-map.addControl(new mapboxgl.NavigationControl());	
+	//Testing popup on hover
+		map.on('load', function() {
+
+		  // Create a popup, but don't add it to the map yet.
+		  var popup = new mapboxgl.Popup({
+			closeButton: false,
+			closeOnClick: false
+		  });
+
+		  function showPopup(e) {
+			// Updates the cursor to a hand (interactivity)
+			map.getCanvas().style.cursor = 'pointer';
+
+			// Show the popup at the coordinates with some data
+			popup.setLngLat(e.features[0].geometry.coordinates)
+			  .setHTML(checkEmpty(e.features[0].properties.CAMPNAME))
+			  .addTo(map);
+		  }
+
+		  function hidePopup() {
+			map.getCanvas().style.cursor = '';
+			popup.remove();
+		  }
+
+		  function checkEmpty(info) {
+			return (info) ? info : "No data";
+		  }
+
+		// CHANGE: Add layer names that need to be interactive
+
+		  map.on('mouseenter', 'charter-schools-v1-6wolgf', showPopup);
+		  map.on('mouseleave', 'charter-schools-v1-6wolgf', hidePopup);
+
+		});
+	
+	/*	
+	// When a click event occurs on a feature in the charter schools layer, open a popup at the
+    // location of the click, with description HTML from its properties.
+   
+   map.on('click', function(e) {
+		  var features = map.queryRenderedFeatures(e.point, {
+			layers: ['charter-schools-v1-6wolgf'] // replace this with the name of the layer
+		  });
+
+		  if (!features.length) {
+			return;
+		  }
+
+		  var feature = features[0];
+
+		  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+			.setLngLat(feature.geometry.coordinates)
+			.setHTML("<span class='varname'>School Name: </span><span class='attribute'>" + feature.properties.CAMPNAME + "<br><span class='varname'>Charter Type: </span><span class='attribute'>" + feature.properties.CHART_TYPE )
+			.setLngLat(feature.geometry.coordinates)
+			.addTo(map);
+		});
+		*/
+
+// Add zoom controls to the map, with the compass turned off; position is modified in CSS
+		map.addControl(new mapboxgl.NavigationControl({
+			// Hide rotation control.
+			showCompass: false
+			}), 'bottom-right');
 	
 </script>
 
