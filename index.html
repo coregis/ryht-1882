@@ -122,7 +122,7 @@
 			}
 		</script>
 	</script>
-		
+
 </head>
 <body>
 
@@ -189,7 +189,7 @@
 					<li><span style='background:#4d7300;'></span>More than $2,000</li>
 					<li><span><img class="charter" src="markers/charter_marker.svg"></img></span>Charter Schools</li>
 				  </ul>
-			</div>			
+			</div>
 		<div class='legend-source'>Source: <a href="https://www.raiseyourhandtexas.org/"  target="_blank">Raise Your Hand Texas</a></div>
 		<div class='map-credit'>Map design by <a href="http://www.coregis.net/"  target="_blank">CORE GIS</a></div>
 	</div>
@@ -205,14 +205,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY29yZS1naXMiLCJhIjoiaUxqQS1zQSJ9.mDT5nb8l_dWI
 				];
 
 
-				
+
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/core-gis/cjm2gaa5p950g2rn6pg3u90ko', // stylesheet location; this is the migrated style with markers turned OFF and 1882 polys on
     center: [-98.560161, 31.314160], // starting position [lng, lat]
 	zoom: 5.4, // starting zoom
 	maxBounds: bounds // sets bounds as max
-	
+
 });
 
 			var originalZoomLevel = map.getZoom();
@@ -319,7 +319,7 @@ map.on('load', function () {
 		"paint":{
 			'fill-color': 'rgba(200, 100, 240, 0)',
             'fill-outline-color': 'rgba(200, 100, 240, 0)'
-			}	
+			}
 	});
 });
 
@@ -340,7 +340,7 @@ map.on('load', function () {
 		"paint":{
 			'fill-color': 'rgba(200, 100, 240, 0)',
             'fill-outline-color': 'rgba(200, 100, 240, 0)'
-			}	
+			}
 	});
 });
 
@@ -405,7 +405,7 @@ map.on('load', function () {
             .addTo(map);
 		console.log(e.features[0].properties);
     });
-	
+
 	 // Change the cursor to a pointer when the mouse is over the districts layer.
     map.on('mouseenter', 'districts_1882', function () {
         map.getCanvas().style.cursor = 'pointer';
@@ -415,7 +415,7 @@ map.on('load', function () {
     map.on('mouseleave', 'districts_1882', function () {
         map.getCanvas().style.cursor = '';
     });
-	
+
 	function fillpopup(data){
 		var html = "";
 		html = html + "<span class='varname'>District Name: </span> <span class='attribute'>" + data.SchDistNam + "</span>";
@@ -425,7 +425,7 @@ map.on('load', function () {
 		html = html + "<span class='varname'>Increase per ADA</span> <span class='attribute'>" + data.EstADAIn +"</span>";
 		return html;
 		//this will return the string to the calling function
-		
+
 	}
 
 	//Popup on hover
@@ -462,11 +462,11 @@ map.on('load', function () {
 		  map.on('mouseleave', 'charter-schools-v2', hidePopup);
 
 		});
-	
-	/*	
+
+	/*
 	// When a click event occurs on a feature in the charter schools layer, open a popup at the
     // location of the click, with description HTML from its properties.
-   
+
    map.on('click', function(e) {
 		  var features = map.queryRenderedFeatures(e.point, {
 			layers: ['charter-schools-v1-6wolgf'] // replace this with the name of the layer
@@ -491,7 +491,7 @@ map.on('load', function () {
 			// Hide rotation control.
 			showCompass: false
 			}), 'bottom-right');
-	
+
 </script>
 
 </body>
