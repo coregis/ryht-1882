@@ -30,8 +30,8 @@
 				}
 				else {
 					populateZoomControl("school-districts-control", "texas-school-districts", "NAME", "Texas School Districts");
-					//populateZoomControl("house-districts-control", "state-house-districts", "District", "State House Districts");
-					//populateZoomControl("senate-districts-control", "state-senate-districts", "District", "State Senate Districts");
+					populateZoomControl("house-districts-control", "state-house-districts", "District", "State House Districts");
+					populateZoomControl("senate-districts-control", "state-senate-districts", "District", "State Senate Districts");
 				}
 			}
 
@@ -124,16 +124,16 @@
 				<br /><br /><br />
 			</p>
 			<p class="moreinfo">
-				Use the drop-down menus below to zoom to a School District of your choice. Choose the top entry on the drop down to return to the full extent of the state.
+				Use the drop-down menus below to zoom to a School District, House District, or Senate District of your choice. Choose the top entry on any drop down to return to the full extent of the state.
 				<br /><br />
 
 				<!--Drop down controls-->
 
 				<select id="school-districts-control" onchange="zoomToPolygon('texas-school-districts', this.value, 'NAME');"></select>
 				<br /><br />
-				<!--<select id="house-districts-control" onchange="zoomToPolygon('state-house-districts', this.value, 'District');"></select>
+				<select id="house-districts-control" onchange="zoomToPolygon('state-house-districts', this.value, 'District');"></select>
 				<br /><br />
-				<select id="senate-districts-control" onchange="zoomToPolygon('state-senate-districts', this.value, 'District');"></select>-->
+				<select id="senate-districts-control" onchange="zoomToPolygon('state-senate-districts', this.value, 'District');"></select>
 
 				<br /><br />
 				Map produced by <a href="http://www.coregis.net/" target="_blank">CoreGIS</a>.
