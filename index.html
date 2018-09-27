@@ -219,14 +219,8 @@ var map = new mapboxgl.Map({
 
 			function setVisibilityState(params) {
 				if ((params.visibleOnLoad === undefined) || (params.visibleOnLoad === false)) {
-					if ((params.legendID !== undefined) && (params.legendID !== false)) {
-						document.getElementById(params.legendID).classList.add('inactive');
-					}
 					return 'none';
 				} else {
-					if ((params.legendID !== undefined) && (params.legendID !== false)) {
-						document.getElementById(params.legendID).classList.remove('inactive');
-					}
 					return 'visible';
 				}
 			}
@@ -321,9 +315,6 @@ map.on('load', function () {
             'fill-outline-color': 'rgba(200, 100, 240, 0)'
 			}
 	});
-});
-
-map.on('load', function () {
 
 	map.addSource('charter_schools',{
 		type:'vector',
@@ -342,7 +333,6 @@ map.on('load', function () {
             'fill-outline-color': 'rgba(200, 100, 240, 0)'
 			}
 	});
-});
 
 				addVectorLayer(
 					map,
@@ -429,7 +419,7 @@ map.on('load', function () {
 	}
 
 	//Popup on hover
-		map.on('load', function() {
+
 
 		  // Create a popup, but don't add it to the map yet.
 		  var popup = new mapboxgl.Popup({
