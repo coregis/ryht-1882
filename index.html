@@ -343,7 +343,7 @@ map.on('load', function () {
 						'lineLayerName': 'texas-school-districts-lines', // OPTIONAL name we'll use for the layer that shows the outlines. Leave out or set to false if you don't want outlines displayed.
 						'lineColor': '#a1b082', // colour to draw those outlines with; safe to leave out if we're not drawing outlines, but must be explicitly set if we are
 						'legendID': 'texas_school_districts', // OPTIONAL: the id in the legend, so we can set it to active or inactive as appropriate. Simply leave out for layers that don't appear in the legend
-						'displayBehind': 'country-label-sm', // ID of another existing layer, which Mapbox will make sure this one gets drawn behind
+						'displayBehind': 'districts_1882', // ID of another existing layer, which Mapbox will make sure this one gets drawn behind
 						'polygonLayerName': 'texas-school-districts-poly', // OPTIONAL name we'll use for the layer that invisibly stores the polygon extents. Needed if we're either going to add this layer to either the zoom to districts control or set click events (e.g. popups) on it.	Leave out or set to false if you don't want one.
 						'polygonFillColor': 'rgba(200, 100, 240, 0)', // colour to fill polygons with. Needed if there's going to be a polygon layer; simply leave out if not.
 						'polygonOutlineColor': 'rgba(200, 100, 240, 0)', // colour to draw polygon boundaries with. Needed if there's going to be a polygon layer; simply leave out if not.
@@ -361,7 +361,7 @@ map.on('load', function () {
 						'lineLayerName': 'state-senate-districts-lines',
 						'lineColor': '#a1b082',
 						'legendID': 'state_senate_districts',
-						'displayBehind': 'raising-school-leaders-points',
+						'displayBehind': 'districts_1882',
 						'polygonLayerName': 'state-senate-districts-poly',
 						'polygonFillColor': 'rgba(200, 100, 240, 0)',
 						'polygonOutlineColor': 'rgba(200, 100, 240, 0)',
@@ -378,7 +378,7 @@ map.on('load', function () {
 						'lineLayerName': 'state-house-districts-lines',
 						'lineColor': 'rgba(117, 137, 77, 0.5)',
 						'legendID': 'state_house_districts',
-						'displayBehind': 'raising-school-leaders-points',
+						'displayBehind': 'districts_1882',
 						'polygonLayerName': 'state-house-districts-poly',
 						'polygonFillColor': 'rgba(200, 100, 240, 0)',
 						'polygonOutlineColor': 'rgba(200, 100, 240, 0)',
