@@ -441,7 +441,9 @@ map.on('load', function () {
 		  map.on('mouseenter', 'charter-schools-v2', showPopup);
 		  map.on('mouseleave', 'charter-schools-v2', hidePopup);
 
-		});
+			runWhenLoadComplete();
+
+		}); // end of map.on(load) block
 
 	/*
 	// When a click event occurs on a feature in the charter schools layer, open a popup at the
