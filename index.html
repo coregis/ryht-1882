@@ -74,9 +74,9 @@
 					// use a timeout here to make sure that the zoom in doesn't try to start before the zoom out has finished
 					setTimeout(
 						function(){
-							console.log(layerBounds, layerID, features);
+//							console.log(layerBounds, layerID, features);
 							features = features.concat(map.querySourceFeatures(sourceID, {'sourceLayer': layerID}));
-							console.log(layerBounds, layerID, features);
+//							console.log(layerBounds, layerID, features);
 							minX = layerBounds[2];
 							maxX = layerBounds[0];
 							minY = layerBounds[3];
@@ -106,12 +106,12 @@
 											}
 										}
 									}
-									console.log(itemID, i, minX, minY, maxX, maxY, coords);
+//									console.log(itemID, i, minX, minY, maxX, maxY, coords);
 								}
 							}
 							// if we found any bounds, zoom to them
-							console.log(minX, minY, maxX, maxY);
-							console.log(layerBounds);
+//							console.log(minX, minY, maxX, maxY);
+//							console.log(layerBounds);
 							if (itemFound) {
 								map.fitBounds([[minX, minY], [maxX, maxY]], options={padding: 10});
 							}
