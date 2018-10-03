@@ -30,8 +30,6 @@
 				}
 				else {
 					populateZoomControl("school-districts-control", "texas-school-districts", "NAME", "Texas School Districts");
-					//populateZoomControl("house-districts-control", "state-house-districts", "District", "State House Districts");
-					//populateZoomControl("senate-districts-control", "state-senate-districts", "District", "State Senate Districts");
 				}
 			}
 
@@ -74,9 +72,7 @@
 					// use a timeout here to make sure that the zoom in doesn't try to start before the zoom out has finished
 					setTimeout(
 						function(){
-//							console.log(layerBounds, layerID, features);
 							features = features.concat(map.querySourceFeatures(sourceID, {'sourceLayer': layerID}));
-//							console.log(layerBounds, layerID, features);
 							minX = layerBounds[2];
 							maxX = layerBounds[0];
 							minY = layerBounds[3];
@@ -106,12 +102,9 @@
 											}
 										}
 									}
-//									console.log(itemID, i, minX, minY, maxX, maxY, coords);
 								}
 							}
 							// if we found any bounds, zoom to them
-//							console.log(minX, minY, maxX, maxY);
-//							console.log(layerBounds);
 							if (itemFound) {
 								map.fitBounds([[minX, minY], [maxX, maxY]], options={padding: 10});
 							}
@@ -141,9 +134,6 @@
 
 				<select id="school-districts-control" onchange="zoomToPolygon('texas-school-districts', this.value, 'NAME');"></select>
 				<br /><br />
-				<!--<select id="house-districts-control" onchange="zoomToPolygon('state-house-districts', this.value, 'District');"></select>
-				<br /><br />
-				<select id="senate-districts-control" onchange="zoomToPolygon('state-senate-districts', this.value, 'District');"></select>-->
 
 				<br /><br />
 				Map produced by <a href="http://www.coregis.net/" target="_blank">CoreGIS</a>.
@@ -202,8 +192,6 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY29yZS1naXMiLCJhIjoiaUxqQS1zQSJ9.mDT5nb8l_dWI
 			var bounds = [
 					[-114.9594,21.637], // southwest coords
 					[-85.50,39.317] // northeast coords
-//					[-116,21], // southwest coords
-//					[-85,40] // northeast coords
 				];
 
 
@@ -456,29 +444,6 @@ map.on('load', function () {
 			runWhenLoadComplete();
 
 		}); // end of map.on(load) block
-
-	/*
-	// When a click event occurs on a feature in the charter schools layer, open a popup at the
-    // location of the click, with description HTML from its properties.
-
-   map.on('click', function(e) {
-		  var features = map.queryRenderedFeatures(e.point, {
-			layers: ['charter-schools-v1-6wolgf'] // replace this with the name of the layer
-		  });
-
-		  if (!features.length) {
-			return;
-		  }
-
-		  var feature = features[0];
-
-		  var popup = new mapboxgl.Popup({ offset: [0, -15] })
-			.setLngLat(feature.geometry.coordinates)
-			.setHTML("<span class='varname'>School Name: </span><span class='attribute'>" + feature.properties.CAMPNAME + "<br><span class='varname'>Charter Type: </span><span class='attribute'>" + feature.properties.CHART_TYPE )
-			.setLngLat(feature.geometry.coordinates)
-			.addTo(map);
-		});
-		*/
 
 // Add zoom controls to the map, with the compass turned off; position is modified in CSS
 		map.addControl(new mapboxgl.NavigationControl({
