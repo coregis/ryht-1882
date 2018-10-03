@@ -30,8 +30,6 @@
 				}
 				else {
 					populateZoomControl("school-districts-control", "texas-school-districts", "NAME", "Texas School Districts");
-					//populateZoomControl("house-districts-control", "state-house-districts", "District", "State House Districts");
-					//populateZoomControl("senate-districts-control", "state-senate-districts", "District", "State Senate Districts");
 				}
 			}
 
@@ -64,23 +62,26 @@
 			}
 
 			function zoomToPolygon(sourceID, itemID, fieldName) {
-				// first quickly zoom out to the full layer area
-				map.fitBounds(map.getSource(sourceID).bounds, options={duration: 0});
-				// if we haven't passed in an itemID, then just stop there; otherwise continue with the zoom in
+				// if we have an itemID, then do the main work
 				if (typeof itemID !== 'undefined') {
+					layerBounds = map.getSource(sourceID).bounds;
+					layerID = map.getSource(sourceID).vectorLayerIds[0];
+					features = map.querySourceFeatures(sourceID, {'sourceLayer': layerID});
+					// now zoom out and requery features to make sure we don't miss anything from having been zoomed in
+					map.fitBounds(bounds, options={duration: 0, padding: 100});
 					// use a timeout here to make sure that the zoom in doesn't try to start before the zoom out has finished
 					setTimeout(
 						function(){
-							layerBounds = map.getSource(sourceID).bounds;
-							layerID = map.getSource(sourceID).vectorLayerIds[0];
-							features = map.querySourceFeatures(sourceID, {'sourceLayer': layerID})
+							features = features.concat(map.querySourceFeatures(sourceID, {'sourceLayer': layerID}));
 							minX = layerBounds[2];
 							maxX = layerBounds[0];
 							minY = layerBounds[3];
 							maxY = layerBounds[1];
+							itemFound = false;
 							// then step through features - first to find the item we want
 							for (i in features) {
 								if (features[i].properties[fieldName] == itemID) {
+									itemFound = true;
 									coords = features[i].toJSON().geometry.coordinates;
 									for (j in coords) {
 										// then the coords returned may be a simple array of coords, or an array of arrays if it's a multipolygon
@@ -103,8 +104,10 @@
 									}
 								}
 							}
-							// having found the bounds, the rest is easy
-							map.fitBounds([[minX, minY], [maxX, maxY]], options={padding: 10});
+							// if we found any bounds, zoom to them
+							if (itemFound) {
+								map.fitBounds([[minX, minY], [maxX, maxY]], options={padding: 10});
+							}
 						},
 						100
 					); // end of setTimeout block
@@ -131,9 +134,6 @@
 
 				<select id="school-districts-control" onchange="zoomToPolygon('texas-school-districts', this.value, 'NAME');"></select>
 				<br /><br />
-				<!--<select id="house-districts-control" onchange="zoomToPolygon('state-house-districts', this.value, 'District');"></select>
-				<br /><br />
-				<select id="senate-districts-control" onchange="zoomToPolygon('state-senate-districts', this.value, 'District');"></select>-->
 
 				<br /><br />
 				Map produced by <a href="http://www.coregis.net/" target="_blank">CoreGIS</a>.
@@ -444,29 +444,6 @@ map.on('load', function () {
 			runWhenLoadComplete();
 
 		}); // end of map.on(load) block
-
-	/*
-	// When a click event occurs on a feature in the charter schools layer, open a popup at the
-    // location of the click, with description HTML from its properties.
-
-   map.on('click', function(e) {
-		  var features = map.queryRenderedFeatures(e.point, {
-			layers: ['charter-schools-v1-6wolgf'] // replace this with the name of the layer
-		  });
-
-		  if (!features.length) {
-			return;
-		  }
-
-		  var feature = features[0];
-
-		  var popup = new mapboxgl.Popup({ offset: [0, -15] })
-			.setLngLat(feature.geometry.coordinates)
-			.setHTML("<span class='varname'>School Name: </span><span class='attribute'>" + feature.properties.CAMPNAME + "<br><span class='varname'>Charter Type: </span><span class='attribute'>" + feature.properties.CHART_TYPE )
-			.setLngLat(feature.geometry.coordinates)
-			.addTo(map);
-		});
-		*/
 
 // Add zoom controls to the map, with the compass turned off; position is modified in CSS
 		map.addControl(new mapboxgl.NavigationControl({
