@@ -119,26 +119,6 @@ ul{
     font-style: italic;
     font-size: 75%;
     }	
-	
-.legend{
-	background-color: #ffffff;
-	opacity:.8;
-	border: 1px solid #989797;
-	width: 225px;
-	text-align: left;
-	padding: 10px;
-    position: fixed;
-	z-index : 1;
-    right: 0;
-	bottom: 0;
-	font-family: "Montserrat", helvetica, arial, sans-serif;	
-	font-weight: normal;
-	color: #363635;
-	text-decoration: none;
-	margin-right: 10px;
-	margin-bottom: 20px;
-	overflow: hidden; /*planning ahead to clear floats*/
-}
 
 ul{
 	list-style-type:none;
@@ -178,7 +158,9 @@ ul{
     border: 1px solid #999;
     }
   .legend .legend-source {
-    font-size: 70%;
+    width: 175 px;
+	font-size: 70%;
+	margin-right: 20px;
     color: #999;
     clear: both;
     }
@@ -305,11 +287,6 @@ ul{
 	display: block;
 	float: left;
 }
-  .legend .legend-source {
-    font-size: 70%;
-    color: #999;
-    clear: both;
-    }
 
   .legend .map-credit {
     font-size: 70%;
