@@ -51,7 +51,6 @@
 				polygons = [];
 				existingItems = [];
 				for (i in features) {
-					console.log(features[i].properties);
 					existing = existingItems.indexOf(features[i].properties[nameField]);
 					if (existing > -1) {
 						polygons[existing].bbox = getFeatureBounds(
