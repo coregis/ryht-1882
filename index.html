@@ -138,6 +138,9 @@
 						SchDistNam: coords[4],
 						EstADAIn: coords[5]
 					};
+					// close any existing popup[s]
+					document.querySelectorAll('.mapboxgl-popup').forEach(e => e.remove());
+					// draw the new one
 					new mapboxgl.Popup()
 						.setLngLat(middle)
 						.setHTML(fillpopup(data))
