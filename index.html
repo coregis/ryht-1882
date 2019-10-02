@@ -299,7 +299,33 @@ map.on('load', function () {
 			map.getCanvas().style.cursor = '';
 	});
 
+	//Popup on hover
+	// Create a popup, but don't add it to the map yet.
+	var popup = new mapboxgl.Popup({
+		closeButton: false,
+		closeOnClick: false
+	});
 
+	function showPopup(e) {
+		// Updates the cursor to a hand (interactivity)
+		map.getCanvas().style.cursor = 'pointer';
+		// Show the popup at the coordinates with some data
+		popup.setLngLat(e.features[0].geometry.coordinates)
+			.setHTML(checkEmpty(e.features[0].properties.CAMPNAME))
+			.addTo(map);
+	}
+
+	function hidePopup() {
+		map.getCanvas().style.cursor = '';
+		popup.remove();
+	}
+
+	function checkEmpty(info) {
+		return (info) ? info : "No data";
+	}
+
+	map.on('mouseenter', 'charter-schools-v2', showPopup);
+	map.on('mouseleave', 'charter-schools-v2', hidePopup);
 
 	runWhenLoadComplete();
 
