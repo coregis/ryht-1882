@@ -111,6 +111,15 @@
 				return [[minX, minY], [maxX, maxY]];
 			}
 
+			function fillpopup(data){
+				var html = "";
+				html = html + "<span class='varname'>District Name: </span> <span class='attribute'>" + data.SchDistNam + "</span>";
+				html = html + "<br>"
+				html = html + "<span class='varname'>Increase per ADA</span> <span class='attribute'>" + data.EstADAIn +"</span>";
+				return html;
+				//this will return the string to the calling function
+			}
+
 			function zoomToPolygon(sourceID, coords) {
 				if (typeof coords !== 'undefined') {
 					coords = coords.split(",");
@@ -119,6 +128,19 @@
 						[coords[2], coords[3]]
 					];
 					map.fitBounds(bbox, options={padding: 10, duration: 5000});
+					// find the middle of the bbox to put a popup there
+					var middle = new mapboxgl.LngLat(
+						(parseFloat(coords[0]) + parseFloat(coords[2])) / 2,
+						(parseFloat(coords[1]) + parseFloat(coords[3])) / 2
+					);
+					var data = {
+						SchDistNam: 'unnamed district',
+						EstADAIn: 'foo'
+					};
+					new mapboxgl.Popup()
+						.setLngLat(middle)
+						.setHTML(fillpopup(data))
+						.addTo(map);
 				}
 			}
 		</script>
@@ -404,14 +426,7 @@ map.on('load', function () {
 			map.getCanvas().style.cursor = '';
 	});
 
-	function fillpopup(data){
-		var html = "";
-		html = html + "<span class='varname'>District Name: </span> <span class='attribute'>" + data.SchDistNam + "</span>";
-		html = html + "<br>"
-		html = html + "<span class='varname'>Increase per ADA</span> <span class='attribute'>" + data.EstADAIn +"</span>";
-		return html;
-		//this will return the string to the calling function
-	}
+
 
 	runWhenLoadComplete();
 
