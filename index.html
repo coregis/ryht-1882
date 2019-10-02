@@ -29,28 +29,29 @@
 					setTimeout(runWhenLoadComplete, 100);
 				}
 				else {
-					populateZoomControl("school-districts-control", "texas-school-districts", "NAME", "Texas School Districts");
+					populateZoomControl("school-districts-control", "districts_1882", "NAME", "EstADAIn", "Texas School Districts");
 				}
 			}
 
-			function populateZoomControl(selectID, sourceID, fieldName, layerName) {
-				polygons = getPolygons(sourceID, fieldName);
+			function populateZoomControl(selectID, sourceID, nameField, dataField, layerName) {
+				polygons = getPolygons(sourceID, nameField, dataField);
 				var select = document.getElementById(selectID);
 				select.options[0] = new Option(layerName);
 				for (i in polygons) {
 					select.options[select.options.length] = new Option(
 						polygons[i].name,
-						polygons[i].bbox
+						polygons[i].bbox + "," + polygons[i].name + "," + polygons[i].data
 					);
 				}
 			}
 
-			function getPolygons(sourceID, nameField) {
+			function getPolygons(sourceID, nameField, dataField) {
 				layerID = map.getSource(sourceID).vectorLayerIds[0];
 				features = map.querySourceFeatures(sourceID, {'sourceLayer': layerID})
 				polygons = [];
 				existingItems = [];
 				for (i in features) {
+					console.log(features[i].properties);
 					existing = existingItems.indexOf(features[i].properties[nameField]);
 					if (existing > -1) {
 						polygons[existing].bbox = getFeatureBounds(
@@ -62,6 +63,7 @@
 						existingItems.push(features[i].properties[nameField]);
 						polygons.push({
 							name: features[i].properties[nameField],
+							data: features[i].properties[dataField],
 							bbox: getFeatureBounds(features[i].toJSON().geometry.coordinates)
 						});
 					}
@@ -134,8 +136,8 @@
 						(parseFloat(coords[1]) + parseFloat(coords[3])) / 2
 					);
 					var data = {
-						SchDistNam: 'unnamed district',
-						EstADAIn: 'foo'
+						SchDistNam: coords[4],
+						EstADAIn: coords[5]
 					};
 					new mapboxgl.Popup()
 						.setLngLat(middle)
