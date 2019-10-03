@@ -40,7 +40,7 @@
 				for (i in polygons) {
 					select.options[select.options.length] = new Option(
 						polygons[i].name,
-						polygons[i].bbox + "," + polygons[i].name + "," + polygons[i].data
+						polygons[i].bbox + "," + polygons[i].name + "," + polygons[i].data.replace(",", "_")
 					);
 				}
 			}
@@ -136,7 +136,7 @@
 					);
 					var data = {
 						SchDistNam: coords[4],
-						EstADAIn: coords[5]
+						EstADAIn: coords[5].replace("_", ",")
 					};
 					// close any existing popup[s]
 					document.querySelectorAll('.mapboxgl-popup').forEach(e => e.remove());
